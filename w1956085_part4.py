@@ -1,0 +1,155 @@
+#declare that my work contains no examples of misconduct, such as plagiarism, or collusion. 
+# Any code taken from other sources is referenced within my code solution. 
+# Student ID: w1956085
+# IIT NO: 20220587
+# Date: 09th december 2022
+
+
+"""
+References
+    1.https://www.w3schools.com/python/python_intro.asp
+    2.https://docs.python.org/3/tutorial/datastructures.html#dictionaries
+    3.Lecture meterials & Tutorial meterials
+"""
+
+
+no_of_outcome = 0
+progress = 0
+trailer = 0
+retriever = 0
+exclude = 0
+
+pass_list = []
+defer_list = []
+fail_list = []
+result_list = []
+student_list = []
+
+student_dict = {}
+
+while True:
+    
+        while True:
+            student_ID = str(input("Please enter your Student ID : "))
+      
+            while True:
+                pass_credit = input("Please enter your credits at Pass : ")
+                try:
+                    pass_credit = int(pass_credit)
+                    if pass_credit in range(0,121,20):
+                        break
+                    else:
+                        print(" Out of range  \n")
+                        print(" Please try again  \n")
+                except ValueError:
+                    print(" Integer Required.....")
+                    print(" Please try again !!!!! \n")
+        
+        
+            while True:
+                defer_credit = input("Please enter your credits at Defer : ")
+                try:
+                    defer_credit = int(defer_credit)
+                    if defer_credit in range(0,121,20):
+                        break
+                    else:
+                        print(" Out of range  \n")
+                        print(" Please try again !!!!!  \n")
+                except ValueError:
+                    print(" Integer Required..... \n")
+                    print(" Please try again !!!!! \n")
+            
+            
+            while True:
+                fail_credit = input("Please enter your credits at Fail : ")
+                try:
+                    fail_credit = int(fail_credit)
+                    if fail_credit in range(0,121,20):
+                        break
+                    else:
+                        print(" Out of range  \n")
+                        print(" Please try again !!!!! ")
+                except ValueError:
+                    print(" Integer Required.....  \n")
+                    print(" Please try again !!!!! ")
+            
+            total = pass_credit + defer_credit + fail_credit 
+            if total == 120:
+                break 
+            else:
+                print("Total incorrect ! \n")
+                print(" Please try again !!!!! \n")        
+        
+        student_list.append(student_ID)
+        if pass_credit == 120:
+            result = 'Progress'
+            result_list.append("Progress")
+            
+        elif pass_credit == 100:
+            result = 'Progress(Module trailer)'
+            result_list.append("Progress(Module trailer)")
+            
+        elif pass_credit == 80 or pass_credit == 60:
+            result = 'Module retriever'
+            result_list.append("Module retriever")
+            
+        elif fail_credit >= 80:
+            result = 'Exclude'
+            result_list.append("Exclude")
+        else:
+            result = 'Module retriever'
+            result_list.append("Module retriever")
+        print(result,'\n')
+        
+        if result == 'Progress':
+            progress += 1
+        elif result =='Progress(Module trailer)':
+            trailer += 1 
+        elif result == 'Module retriever':
+            retriever += 1
+        else: 
+            exclude += 1
+        
+        no_of_outcome += 1
+        pass_list.append(pass_credit)
+        defer_list.append(defer_credit)
+        fail_list.append(fail_credit)
+        
+        
+        Repeat = input("Would you like to process another time   \nEnter 'y' for continue 'q' to quit and view results :  ")        
+        Repeat= Repeat.lower()
+        print('')
+        if Repeat == 'q':
+            break
+        elif Repeat == 'y':
+            continue
+       
+
+print("-" *50) 
+print("Histogram  ") 
+print(f'Progress   {progress} :',progress*'*')    
+print(f'Trailer    {trailer} :',trailer*'*')
+print(f'Retriever  {retriever} :',retriever*'*')
+print(f'Exclude    {exclude} :',exclude* '*','\n')
+print(no_of_outcome, " outcomes in total. ")
+print('-'*50)
+
+
+for i in range(no_of_outcome):
+        print(f'{result_list[i]}-{pass_list[i]},{defer_list[i]},{fail_list[i]}')
+        results = "%s - %d, %d, %d" % (result_list[i],pass_list[i],defer_list[i],fail_list[i])
+        student_dict.update({student_list[i] : results})
+        
+        
+file = open('20220587_abishanan.txt','w')
+for i in range(no_of_outcome):
+        file.write(f'{result_list[i]}-{pass_list[i]},{defer_list[i]},{fail_list[i]}\n')
+file.close()
+
+print("")
+for key,value in student_dict.items():
+    print(key, ':', value)
+    
+
+
+
